@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    parameters {
+        text(name: 'deploymentName', description: 'Provide a name for the deployment.', defaultValue: 'test-deployment')
+
+        choice(
+                choices: ['US-EAST-1', 'EUROPE-WEST-3', 'ASIA-NORTH-1'],
+                name: 'region',
+                description: 'Which region do you want to deploy to?'
+        )
+
+        booleanParam(
+            name: 'proceed',
+            description: 'Are you sure you want to proceed with the deployment?',
+            defaultValue: false
+        )
+    }
+
+    stages {
+        stage('Deployment name') {
+            steps {
+                echo "Deployment name selected: ${params.deploymentName}"
+            }
+        }
+
+        stage('Region selection') {
+            steps {
+                echo "Deployment region selected: ${params.region}"
+            }
+        }
+
+        stage('Confirm Deployment') {
+            steps {
+                echo "Deployment confirmed: ${params.proceed}"
+            }
+         }
+    }
+}
