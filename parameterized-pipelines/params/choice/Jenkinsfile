@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(
+            choices: ['PROD', 'UAT', 'DEV'],
+            name: 'envStage',
+            description: 'Which environment do you want to deploy to?'
+            )
+    }
+
+    stages {
+        stage('Demo') {
+            steps {
+                echo "You have deployed to ${params.envStage} successfully"
+            }
+        }
+    }
+}
